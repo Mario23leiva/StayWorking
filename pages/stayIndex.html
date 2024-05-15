@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../css/styleStayFocused.css">
+    <link rel="stylesheet" href="../css/styleStayOrganized.css">
+    <script src="https://kit.fontawesome.com/6645ba3d64.js" crossorigin="anonymous"></script>
+    <script src="../js/scriptStayFocused.js"></script>
+    <script src="../js/scriptStayOrganized.js"></script>
+    <title>StayWorking</title>
+</head>
+
+<body>
+    <div id="contentMainScreen" class="main-screen stay-focused">
+        <div class="container">
+            <div class="row">
+                <div class="lateral-menu col order-xl-1 order-2 order-md-2">
+                    <div class="menu-changer">
+                        <h2>STAY</h2>
+                        <div class="change-selector">
+                            <div class="change-selection"></div>
+                            <button id="btn-focused" class="selected">FOCUSED</button>
+                            <button id="btn-organized">ORGANIZED</button>
+                        </div>
+                    </div>
+                    <div class="horizontal-line first dark-purple"></div>
+
+                    <div class="title stay-focused-content">
+                        <i class="fa-solid fa-gear"></i>
+                        <h4>Settings</h4>
+                    </div>
+
+                    <div class="title stay-organized-content">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <h4>Add Tasks</h4>
+                    </div>
+
+                    <div class="horizontal-line second dark-purple"></div>
+
+                    <div class="settings stay-focused-content">
+                        <h5>Timer<span>(minutes)</span></h5>
+                        <div class="timer-settings">
+                            <div class="timer-group">
+                                <h6>Pomodoro</h6>
+                                <input type="number" class="form-control" name="pomodoro" id="pomodoro"
+                                    data-default="25" value="" maxlength="2">
+                            </div>
+                            <div class="timer-group">
+                                <h6>Short Brake</h6>
+                                <input type="number" class="form-control" name="shortBrake" id="shortBrake"
+                                    data-default="5" value="" maxlength="2">
+                            </div>
+                            <div class="timer-group">
+                                <h6>Long Brake</h6>
+                                <input type="number" class="form-control" name="longBrake" id="longBrake"
+                                    data-default="15" value="" maxlength="2">
+                            </div>
+                        </div>
+                        <div class="timer-group">
+                            <h5>Long Brake Interval</h5>
+                            <input type="number" class="form-control" name="longBrakeInterval" id="longBrakeInterval"
+                                data-default="4" value="" maxlength="2">
+                        </div>
+                    </div>
+
+                    <div class="button-group stay-focused-content">
+                        <button id="btn-timer-reset">RESET</button>
+                        <button id="btn-timer-save">SAVE</button>
+                    </div>
+                    <div class="add-tasks-flex stay-organized-content">
+                        <div class="add-tasks">
+                            <h5>Title</h5>
+                            <input type="text" class="form-control" name="" id="title-tasks" required>
+                            <h5>Description</h5>
+                            <input type="text" class="form-control" name="" id="description-tasks">
+                            <h5>Category<span>(optional)</span></h5>
+                            <select class="form-select" name="" id="category-tasks">
+                                <option value="design">Design</option>
+                                <option value="development">Development</option>
+                                <option value="maintenance">Maintenance</option>
+                                <option value="testing">Testing</option>
+                                <option value="research">Research</option>
+                                <option value="documentation">Documentation</option>
+                                <option value="proyect-management">Proyect Management</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="finance">Finance</option>
+                                <option value="other" selected>Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="button-group stay-organized-content">
+                        <button id="btn-tasks-reset" type="reset">RESET</button>
+                        <button id="btn-tasks-add">ADD</button>
+                    </div>
+
+                    <div class="vertical-line"></div>
+                </div>
+
+                <div class="main-content col-xl-8 col-12 order-xl-2 order-1 order-md-1">
+                    <div class="timer stay-focused-content">
+                        <div class="options-timer">
+                            <h3 id="pomodoroTimerValue" class="pomodoroTimerValue active">Pomodoro</h3>
+                            <h3 id="shortBrakeTimerValue" class="shortBrakeTimerValue">Short Brake</h3>
+                            <h3 id="longBrakeTimerValue" class="longBrakeTimerValue">Long Brake</h3>
+                        </div>
+                        <div id="pomodoroTimer" data-timer="" class="time-timer pomodoroTimerValue">
+                            25:00
+                        </div>
+                        <div id="shortBrakeTimer" data-timer="" class="time-timer shortBrakeTimerValue">
+                            15:00
+                        </div>
+                        <div id="longBrakeTimer" data-timer="" class="time-timer longBrakeTimerValue">
+                            5:00
+                        </div>
+                        <button id="btnTimerGO" class="btn-timer-go">
+                            GO
+                        </button>
+                    </div>
+
+
+
+                    <div class="kanban-board stay-organized-content">
+                        <div id="toDo" class="kanban-board-todo board">
+                            <h3 class="">TO DO</h3>
+                            <div class="divider"></div>
+                            <div class="kanban-board-todo-content board-content">
+
+                            </div>
+                        </div>
+                        <div id="doing" class="kanban-board-doing board">
+                            <h3 class="">DOING</h3>
+                            <div class="divider"></div>
+                            <div class="kanban-board-doing-content board-content">
+
+                            </div>
+                        </div>
+                        <div id="done" class="kanban-board-done board">
+                            <h3 class="">DONE</h3>
+                            <div class="divider"></div>
+                            <div class="kanban-board-done-content board-content">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="info-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <i class="fa-solid fa-question"></i>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel"><strong>Introduction</strong></h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            style="color: var(--black)"></button>
+                    </div>
+                    <div class="modal-body text-start">
+                        <div class="paragraph">
+                            <h6>·What is Stay Working?</h6>
+                            <p>Is a website that you can use it for free, the website includes, Pomodoro Timer and
+                                Kanban Board.</p>
+                        </div>
+                        <div class="paragraph">
+                            <h6>·What is Pomodoro Technique? <span>(stay focus)</span></h6>
+                            <p>The technique uses a timer to break down work into intervals, traditionally 25 minutes in
+                                length, separated by short breaks.</p>
+                        </div>
+                        <div class="paragraph">
+                            <h6>·What is Kanban Technique? <span>(stay organized)</span></h6>
+                            <p>The technique uses a board to organize your tasks in 3 columns; to do, doing and done</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="showDescriptionTask" tabindex="-1" aria-labelledby="descriptionLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="descriptionLabel">Hola caracola</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</body>
+
+</html>

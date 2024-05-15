@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'Helvetica';
+    src: url('../fonts/Helvetica-Font/Helvetica.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Helvetica-Bold';
+    src: url('../fonts/Helvetica-Font/Helvetica-Bold.ttf') format('truetype');
+}
+
+body {
+    font-family: 'Helvetica';
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    overflow-x: hidden;
+}
+
+:root {
+    --primary-purple: #7D53A2;
+    --secondary-purple: #8A65AB;
+    --dark-purple: #755692;
+    --primary-green: #38858A;
+    --secondary-green: #4C9196;
+    --dark-green: #417B80;
+    --black: #222;
+    --white: #fbfbfb;
+    --grey: #ededed;
+
+    /* -- TASKS CATEGORY COLORS -- */
+    --design: #FFB3BA;
+    --development: #FFDFBA;
+    --maintenance: #FFFFBA;
+    --testing: #BAFFC9;
+    --research: #BAE1FF;
+    --documentation: #EA9EBF;
+    --proyect-management: #D0A0EC;
+    --marketing: #B4DFFF;
+    --finance: #FFEEBC;
+    --other: #EDEDED;
+}
+
+.modal-body .paragraph {
+    padding: 0 50px;
+}
+
+.modal-body .paragraph h6 {
+    font-family: 'Helvetica-Bold';
+}
+
+.modal-body .paragraph h6 span {
+    font-family: 'Helvetica';
+    font-size: 12px;
+}
+
+.modal-body .paragraph p {
+    padding-left: 15px;
+}
+
+.info-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+    background-color: var(--white);
+    box-shadow: 0 5px 5px 0 #0000002c;
+    transition: .5s;
+}
+
+.info-btn i {
+    font-size: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.stay-focused .info-btn {
+    color: var(--secondary-purple);
+}
+
+.stay-organized .info-btn {
+    color: var(--secondary-green);
+}
+
+h5 span {
+    font-size: 12px;
+}

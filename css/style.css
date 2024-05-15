@@ -1,0 +1,104 @@
+@import url('mainStyles.css');
+
+#mainScreen {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#mainScreen .content h1{
+    font-size: 80px;
+    color: #fbfbfb;
+    font-family: 'Helvetica-Bold';
+}
+
+.change-selector {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 100px;
+    border-radius: 50px;
+    box-shadow: 0 3px 3px 0 #0000002c;
+    margin-top: 50px;
+    transition: .5s;
+}
+
+.stay-focused .content .change-selector {
+    background-color: #8A65AB;
+}
+
+.stay-organized .content .change-selector {
+    background-color: #4C9196;
+}
+
+.change-selection {
+    position: absolute;
+    width: 160px;
+    height: 75px;
+    background-color: #fbfbfb;
+    border-radius: 50px;
+    left: 4%;
+    transition: .5s;
+}
+
+.change-selector button {
+    position: relative;
+    margin: 0 8%;
+    font-size: x-large;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    outline: none;
+    color: #fbfbfb;
+    font-family: 'Helvetica-Bold';
+}
+
+.stay-focused .content .change-selector button.selected {
+    color: #8A65AB;
+}
+
+.stay-organized .content .change-selector button.selected {
+    color: #4C9196;
+}
+
+.stay-focused {
+    background-color: #7D53A2;
+    transition: background-color .5s;
+}
+
+.stay-organized {
+    background-color: #38858A;
+    transition: background-color .5s;
+}
+
+
+
+.button-xl {
+    background-color: #fbfbfb;
+    width: 150px;
+    height: 80px;
+    border-radius: 10px;
+    margin-top: 80px;
+    margin-bottom: 50px;
+    cursor: pointer;
+    border: 0;
+    outline: none;
+    box-shadow: 0 5px 5px 0 #0000002c;
+    font-size: 50px;
+    font-family: 'Helvetica-Bold';
+    transition: .5s;
+}
+
+.stay-focused .content .button-xl {
+    color: #8A65AB;
+}
+
+.stay-organized .content .button-xl {
+    color: #4C9196;
+}
+

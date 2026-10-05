@@ -1,64 +1,271 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="lavanda">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://kit.fontawesome.com/6645ba3d64.js" crossorigin="anonymous"></script>
-    <script src="js/script.js"></script>
+    <meta name="theme-color" content="#EEE8F7">
     <title>StayWorking</title>
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='17' r='13' fill='%23B9A3DC'/%3E%3Cpath d='M16 4v6' stroke='%237D5BA6' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="css/styles.css">
+    <script>
+        // Aplica el tema guardado antes de pintar para evitar un parpadeo de color
+        try {
+            const saved = JSON.parse(localStorage.getItem('stayworking:theme'));
+            if (saved) document.documentElement.dataset.theme = saved;
+        } catch (e) { }
+    </script>
+    <script src="js/store.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/kanban.js" defer></script>
+    <script src="js/pomodoro.js" defer></script>
 </head>
 
 <body>
-    <div id="mainScreen" class="main-screen stay-focused">
-        <div class="content">
-            <h1>STAY</h1>
-            <div class="change-selector">
-                <div class="change-selection"></div>
-                <button id="btn-focused" class="selected">FOCUSED</button>
-                <button id="btn-organized">ORGANIZED</button>
-            </div>
-            <button id="go-btn" class="button-xl">GO</button>
-        </div>
-        <div class="info-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <i class="fa-solid fa-question"></i>
-        </div>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.8v14.4a1 1 0 0 0 1.5.9l11.3-7.2a1 1 0 0 0 0-1.8L8.5 3.9A1 1 0 0 0 7 4.8z" fill="currentColor" stroke="none"/></symbol>
+        <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="4.5" width="4" height="15" rx="1.2" fill="currentColor" stroke="none"/><rect x="14" y="4.5" width="4" height="15" rx="1.2" fill="currentColor" stroke="none"/></symbol>
+        <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 4v5h5"/></symbol>
+        <symbol id="i-skip" viewBox="0 0 24 24"><path d="M5 5.5v13l10-6.5z"/><path d="M19 5v14"/></symbol>
+        <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
+        <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 2-.9 2-2 0-.5-.2-1-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1.1.9-2 2-2h2.3A4.7 4.7 0 0 0 21 9.7C21 5.9 17 3 12 3z"/><circle cx="7.5" cy="11.5" r="1.2" fill="currentColor"/><circle cx="9.5" cy="7.5" r="1.2" fill="currentColor"/><circle cx="14.5" cy="7.5" r="1.2" fill="currentColor"/></symbol>
+        <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.4 2.4c-.6.3-1 .9-1 1.6v.4"/><path d="M12 16.8h.01"/></symbol>
+        <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+        <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+        <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12.5a1.5 1.5 0 0 0 1.5 1.5h7a1.5 1.5 0 0 0 1.5-1.5L18 7M9 7V4.5h6V7"/></symbol>
+        <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></symbol>
+        <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+        <symbol id="i-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+    </svg>
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel"><strong>Introduction</strong></h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                            style="color: var(--black)"></button>
-                    </div>
-                    <div class="modal-body text-start">
-                        <div class="paragraph">
-                            <h6>·What is Stay Working?</h6>
-                            <p>Is a website that you can use it for free, the website includes, Pomodoro Timer and
-                                Kanban Board.</p>
-                        </div>
-                        <div class="paragraph">
-                            <h6>·What is Pomodoro Technique? <span>(stay focus)</span></h6>
-                            <p>The technique uses a timer to break down work into intervals, traditionally 25 minutes in
-                                length, separated by short breaks.</p>
-                        </div>
-                        <div class="paragraph">
-                            <h6>·What is Kanban Technique? <span>(stay organized)</span></h6>
-                            <p>The technique uses a board to organize your tasks in 3 columns; to do, doing and done</p>
-                        </div>
+    <div class="app">
+        <header class="topbar">
+            <div class="brand">
+                <span class="brand-mark" aria-hidden="true"></span>
+                <h1>Stay<span>Working</span></h1>
+            </div>
+            <p class="today" id="today"></p>
+            <div class="topbar-actions">
+                <button class="icon-btn" id="help-btn" type="button" aria-label="Ayuda">
+                    <svg class="icon"><use href="#i-help" /></svg>
+                </button>
+                <div class="theme-picker">
+                    <button class="icon-btn" id="theme-btn" type="button" aria-label="Cambiar color"
+                        aria-haspopup="true" aria-expanded="false" aria-controls="theme-menu">
+                        <svg class="icon"><use href="#i-palette" /></svg>
+                    </button>
+                    <div class="theme-menu" id="theme-menu" hidden>
+                        <p class="theme-menu-title">Color de la ventana</p>
+                        <div class="swatches" id="swatches"></div>
                     </div>
                 </div>
             </div>
-        </div>
+        </header>
+
+        <main class="layout">
+            <section class="card pomodoro" aria-labelledby="pomo-title">
+                <div class="card-head">
+                    <h2 id="pomo-title">Pomodoro</h2>
+                    <button class="icon-btn small" id="settings-btn" type="button" aria-label="Ajustes del temporizador">
+                        <svg class="icon"><use href="#i-sliders" /></svg>
+                    </button>
+                </div>
+
+                <div class="modes" role="group" aria-label="Modo">
+                    <button type="button" data-mode="focus">Enfoque</button>
+                    <button type="button" data-mode="short">Descanso</button>
+                    <button type="button" data-mode="long">Descanso largo</button>
+                </div>
+
+                <div class="dial">
+                    <svg viewBox="0 0 200 200" aria-hidden="true">
+                        <circle class="dial-track" cx="100" cy="100" r="90" />
+                        <circle class="dial-progress" id="dial-progress" cx="100" cy="100" r="90" />
+                    </svg>
+                    <div class="dial-center">
+                        <span class="time" id="time" role="timer">25:00</span>
+                        <span class="dial-label" id="dial-label">Enfoque</span>
+                    </div>
+                </div>
+
+                <div class="cycle" id="cycle"></div>
+
+                <div class="controls">
+                    <button class="icon-btn" id="reset-btn" type="button" aria-label="Reiniciar">
+                        <svg class="icon"><use href="#i-reset" /></svg>
+                    </button>
+                    <button class="primary-btn" id="toggle-btn" type="button">
+                        <svg class="icon"><use href="#i-play" /></svg>
+                        <span>Empezar</span>
+                    </button>
+                    <button class="icon-btn" id="skip-btn" type="button" aria-label="Saltar al siguiente">
+                        <svg class="icon"><use href="#i-skip" /></svg>
+                    </button>
+                </div>
+
+                <div class="focus-task" id="focus-task"></div>
+
+                <dl class="stats">
+                    <div><dt>Pomodoros hoy</dt><dd id="stat-pomos">0</dd></div>
+                    <div><dt>Minutos de foco</dt><dd id="stat-minutes">0</dd></div>
+                    <div><dt>Tareas hechas</dt><dd id="stat-done">0</dd></div>
+                </dl>
+            </section>
+
+            <section class="board" aria-labelledby="board-title">
+                <div class="board-head">
+                    <div>
+                        <h2 id="board-title">Tablero</h2>
+                        <p class="carry-note" id="carry-note" hidden></p>
+                    </div>
+                    <button class="secondary-btn" id="new-task-btn" type="button">
+                        <svg class="icon"><use href="#i-plus" /></svg>
+                        Nueva tarea
+                    </button>
+                </div>
+
+                <div class="columns">
+                    <div class="column" data-status="todo">
+                        <header class="column-head">
+                            <h3>Por hacer</h3>
+                            <span class="count" data-count="todo">0</span>
+                        </header>
+                        <form class="quick-add" id="quick-add" autocomplete="off">
+                            <input type="text" name="title" placeholder="Añade una tarea y pulsa Enter"
+                                aria-label="Título de la nueva tarea" maxlength="120">
+                            <button type="submit" class="icon-btn small" aria-label="Añadir tarea">
+                                <svg class="icon"><use href="#i-plus" /></svg>
+                            </button>
+                        </form>
+                        <ul class="task-list" data-status="todo" data-empty="Nada pendiente. ¡Buen trabajo!"></ul>
+                    </div>
+
+                    <div class="column" data-status="doing">
+                        <header class="column-head">
+                            <h3>En curso</h3>
+                            <span class="count" data-count="doing">0</span>
+                        </header>
+                        <ul class="task-list" data-status="doing" data-empty="Arrastra aquí lo que estés haciendo"></ul>
+                    </div>
+
+                    <div class="column" data-status="done">
+                        <header class="column-head">
+                            <h3>Hecho</h3>
+                            <span class="count" data-count="done">0</span>
+                            <button class="text-btn" id="clear-done" type="button" hidden>Vaciar</button>
+                        </header>
+                        <ul class="task-list" data-status="done" data-empty="Aún no hay tareas terminadas"></ul>
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
+
+    <!-- Tarea: crear / editar -->
+    <dialog id="task-dialog" aria-labelledby="task-dialog-title">
+        <form id="task-form" method="dialog">
+            <header class="dialog-head">
+                <h2 id="task-dialog-title">Nueva tarea</h2>
+                <button class="icon-btn small" type="button" data-close aria-label="Cerrar">
+                    <svg class="icon"><use href="#i-close" /></svg>
+                </button>
+            </header>
+            <div class="dialog-body">
+                <label class="field">
+                    <span>Título</span>
+                    <input type="text" name="title" required maxlength="120">
+                </label>
+                <label class="field">
+                    <span>Descripción <em>(opcional)</em></span>
+                    <textarea name="description" rows="3" maxlength="1000"></textarea>
+                </label>
+                <fieldset class="field">
+                    <legend>Categoría</legend>
+                    <div class="category-picker" id="category-picker"></div>
+                </fieldset>
+                <p class="task-meta" id="task-meta"></p>
+            </div>
+            <footer class="dialog-foot">
+                <button class="text-btn danger" type="button" id="delete-task">
+                    <svg class="icon"><use href="#i-trash" /></svg>
+                    Eliminar
+                </button>
+                <span class="spacer"></span>
+                <button class="secondary-btn" type="button" data-close>Cancelar</button>
+                <button class="primary-btn" type="submit">Guardar</button>
+            </footer>
+        </form>
+    </dialog>
+
+    <!-- Ajustes del pomodoro -->
+    <dialog id="settings-dialog" aria-labelledby="settings-title">
+        <form id="settings-form" method="dialog">
+            <header class="dialog-head">
+                <h2 id="settings-title">Ajustes del temporizador</h2>
+                <button class="icon-btn small" type="button" data-close aria-label="Cerrar">
+                    <svg class="icon"><use href="#i-close" /></svg>
+                </button>
+            </header>
+            <div class="dialog-body">
+                <p class="field-group-title">Duración <em>(minutos)</em></p>
+                <div class="number-grid">
+                    <label class="field"><span>Enfoque</span>
+                        <input type="number" name="focus" min="1" max="180" required></label>
+                    <label class="field"><span>Descanso</span>
+                        <input type="number" name="short" min="1" max="60" required></label>
+                    <label class="field"><span>Descanso largo</span>
+                        <input type="number" name="long" min="1" max="120" required></label>
+                </div>
+                <label class="field inline">
+                    <span>Descanso largo cada</span>
+                    <input type="number" name="interval" min="1" max="12" required>
+                    <span>pomodoros</span>
+                </label>
+                <label class="toggle"><input type="checkbox" name="autoStart"><span>Empezar el siguiente automáticamente</span></label>
+                <label class="toggle"><input type="checkbox" name="sound"><span>Sonido al terminar</span></label>
+                <label class="toggle"><input type="checkbox" name="notify"><span>Notificación del navegador al terminar</span></label>
+            </div>
+            <footer class="dialog-foot">
+                <button class="text-btn" type="button" id="settings-defaults">Valores por defecto</button>
+                <span class="spacer"></span>
+                <button class="secondary-btn" type="button" data-close>Cancelar</button>
+                <button class="primary-btn" type="submit">Guardar</button>
+            </footer>
+        </form>
+    </dialog>
+
+    <!-- Ayuda -->
+    <dialog id="help-dialog" aria-labelledby="help-title">
+        <div>
+            <header class="dialog-head">
+                <h2 id="help-title">Cómo funciona</h2>
+                <button class="icon-btn small" type="button" data-close aria-label="Cerrar">
+                    <svg class="icon"><use href="#i-close" /></svg>
+                </button>
+            </header>
+            <div class="dialog-body help">
+                <h3>Pomodoro</h3>
+                <p>Trabaja en bloques de enfoque (25 min por defecto) separados por descansos cortos. Cada pocos
+                    pomodoros toca un descanso largo.</p>
+                <h3>Kanban</h3>
+                <p>Organiza tus tareas en tres columnas: por hacer, en curso y hecho. Arrástralas entre columnas o
+                    usa las flechas de cada tarjeta.</p>
+                <h3>Juntos</h3>
+                <p>Pulsa <svg class="icon inline"><use href="#i-target" /></svg> en una tarjeta para enfocarte en
+                    ella: cada pomodoro que completes se sumará a esa tarea.</p>
+                <h3>Atajos</h3>
+                <ul class="shortcuts">
+                    <li><kbd>Espacio</kbd> empezar / pausar</li>
+                    <li><kbd>N</kbd> nueva tarea rápida</li>
+                </ul>
+                <p class="muted">Todo se guarda en este navegador: tus tareas, el temporizador y el color siguen ahí
+                    cuando vuelvas otro día.</p>
+            </div>
+        </div>
+    </dialog>
+
+    <audio id="alarm" src="resources/alarm.mp3" preload="auto"></audio>
 </body>
 
 </html>

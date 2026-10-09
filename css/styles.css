@@ -1165,21 +1165,31 @@ input::-webkit-inner-spin-button {
     gap: 6px;
     padding: 5px 10px;
     border-radius: 999px;
-    border: 1.5px solid transparent;
+    border: 2px solid transparent;
     background: color-mix(in srgb, var(--cat) 55%, var(--surface));
     color: var(--cat-ink);
     font-size: 12px;
     font-weight: 600;
-    transition: border-color .15s, background-color .15s;
+    transition: border-color .15s, background-color .15s, box-shadow .15s;
 }
 
 [data-theme="noche"] .category-picker span {
     background: color-mix(in srgb, var(--cat) 80%, var(--surface));
 }
 
-.category-picker input:checked + span {
-    background: var(--cat);
-    border-color: var(--cat-ink);
+/* La categoría seleccionada pasa a estilo outline: su color se convierte en el borde */
+.category-picker input:checked + span,
+[data-theme="noche"] .category-picker input:checked + span {
+    background: var(--surface);
+    border-color: var(--cat);
+    color: var(--ink);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--cat) 35%, transparent);
+}
+
+.category-picker input:checked + span::before {
+    content: '✓';
+    font-size: 11px;
+    line-height: 1;
 }
 
 .category-picker input:focus-visible + span {
